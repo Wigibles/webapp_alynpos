@@ -1,570 +1,1519 @@
-<!DOCTYPE html><html lang="en" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"><meta name="theme-color" content="#336246"><link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Alyn's Poultry POS — Modern, Offline-First Point of Sale</title>
+    <meta name="description" content="A modern, offline-ready Point of Sale system built for Philippine poultry supply shops. Log sales, track inventory, and calculate profits effortlessly.">
+    <meta name="theme-color" content="#2d5a3f">
+
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Alyn's Poultry POS — Smart Offline Retail Solution">
+    <meta property="og:description" content="Fast, offline-ready sales logging and inventory management for poultry supply shops.">
+    <meta property="og:image" content="./screen.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0..1,0&display=block" rel="stylesheet">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <!-- Three.js for 3D Graphics -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "tertiary-fixed-dim": "#b6ccb8",
-                        "primary-fixed-dim": "#a0d2af",
-                        "surface-tint": "#39684b",
-                        "surface-container-lowest": "#ffffff",
-                        "inverse-on-surface": "#f1f1ed",
-                        "inverse-primary": "#a0d2af",
-                        "secondary-container": "#c6e9c7",
-                        "on-primary": "#ffffff",
-                        "error": "#ba1a1a",
-                        "secondary": "#47664b",
-                        "on-primary-container": "#deffe5",
-                        "on-surface-variant": "#414942",
-                        "on-primary-fixed-variant": "#214f35",
-                        "on-error": "#ffffff",
-                        "surface-container": "#eeeeea",
-                        "on-surface": "#1a1c1a",
-                        "background": "#faf9f6",
-                        "surface-container-high": "#e8e8e5",
-                        "error-container": "#ffdad6",
-                        "surface-bright": "#faf9f6",
-                        "on-secondary-fixed": "#03210c",
-                        "surface-container-highest": "#e2e3df",
-                        "on-tertiary-fixed-variant": "#384b3c",
-                        "surface-container-low": "#f4f4f0",
-                        "tertiary": "#4a5d4d",
-                        "tertiary-container": "#627665",
-                        "primary-fixed": "#bbefca",
-                        "secondary-fixed-dim": "#adcfaf",
-                        "on-tertiary": "#ffffff",
-                        "tertiary-fixed": "#d2e8d3",
-                        "outline": "#717972",
-                        "surface-dim": "#dadad7",
-                        "on-error-container": "#93000a",
-                        "on-background": "#1a1c1a",
-                        "surface-variant": "#e2e3df",
-                        "inverse-surface": "#2f312f",
-                        "on-secondary-container": "#4b6a4f",
-                        "outline-variant": "#c1c9c0",
-                        "on-secondary": "#ffffff",
-                        "primary-container": "#4c7b5d",
-                        "secondary-fixed": "#c8ebca",
-                        "primary": "#336246",
-                        "surface": "#faf9f6",
-                        "on-tertiary-container": "#e6fde7",
-                        "on-tertiary-fixed": "#0d1f12",
-                        "on-primary-fixed": "#002110",
-                        "on-secondary-fixed-variant": "#304d35"
+                    colors: {
+                        brand: {
+                            50: '#f0f7f2',
+                            100: '#dceee1',
+                            200: '#bbdec6',
+                            300: '#8ec4a3',
+                            400: '#5da37e',
+                            500: '#336246',
+                            600: '#285139',
+                            700: '#214230',
+                            800: '#1c3628',
+                            900: '#172e22',
+                            950: '#0a1a12',
+                            accent: '#4ade80',
+                            glow: '#22c55e',
+                            gold: '#f59e0b'
+                        }
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "unit": "8px",
-                        "margin-tablet": "32px",
-                        "container-max": "1280px",
-                        "margin-desktop": "64px",
-                        "gutter": "32px",
-                        "section-gap": "120px",
-                        "margin-mobile": "20px"
-                    },
-                    "fontFamily": {
-                        "headline-lg": ["Hanken Grotesk"],
-                        "body-md": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "label-md": ["JetBrains Mono"],
-                        "body-lg": ["Hanken Grotesk"],
-                        "headline-lg-mobile": ["Hanken Grotesk"]
-                    },
-                    "fontSize": {
-                        "headline-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "display-lg": ["64px", { "lineHeight": "72px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "headline-md": ["32px", { "lineHeight": "40px", "fontWeight": "600" }],
-                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
-                        "body-lg": ["20px", { "lineHeight": "32px", "fontWeight": "400" }],
-                        "headline-lg-mobile": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+                    fontFamily: {
+                        sans: ['"Hanken Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Plus Jakarta Sans"', '"Hanken Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
                     }
                 }
             }
         }
-    }catch(_e){}</script><style>
-        /* === Global Enhancements === */
-        html { scroll-behavior: smooth; scroll-padding-top: 80px; }
-        
-        /* === Focus Ring === */
-        *:focus-visible { outline: 2px solid #336246; outline-offset: 2px; border-radius: 4px; }
-        
-        /* === Device Frame (shared mockup styles) === */
-        .device-frame {
-            background: #18181b;
-            border-radius: 2rem;
-            padding: 6px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            border: 6px solid #27272a;
+    </script>
+
+    <style>
+        /* === Glassmorphism & Custom Design Tokens === */
+        :root {
+            --bg-base: #f8faf8;
+            --bg-gradient-start: #f4f8f4;
+            --bg-gradient-end: #eaf3ed;
+            --text-primary: #121e16;
+            --text-secondary: #4a5d51;
+            --text-muted: #73887b;
+            
+            --glass-surface: rgba(255, 255, 255, 0.72);
+            --glass-surface-hover: rgba(255, 255, 255, 0.88);
+            --glass-surface-solid: #ffffff;
+            --glass-border: rgba(255, 255, 255, 0.85);
+            --glass-border-subtle: rgba(51, 98, 70, 0.12);
+            --glass-border-highlight: rgba(74, 222, 128, 0.4);
+            --glass-shadow: 0 20px 40px -15px rgba(27, 54, 38, 0.08), 0 0 1px 1px rgba(255, 255, 255, 0.9) inset;
+            --glass-shadow-hover: 0 30px 60px -15px rgba(27, 54, 38, 0.16), 0 0 1px 1px rgba(255, 255, 255, 1) inset;
+            --glass-blur: blur(20px);
+            
+            --mesh-glow-1: rgba(93, 163, 126, 0.18);
+            --mesh-glow-2: rgba(74, 222, 128, 0.15);
+            --mesh-glow-3: rgba(187, 222, 198, 0.25);
+            --device-bg: #111815;
+            --device-border: #22332a;
+        }
+
+        .dark {
+            --bg-base: #0a110d;
+            --bg-gradient-start: #080d0a;
+            --bg-gradient-end: #0f1c15;
+            --text-primary: #f0f7f2;
+            --text-secondary: #a3b8ab;
+            --text-muted: #647d6e;
+            
+            --glass-surface: rgba(18, 30, 23, 0.65);
+            --glass-surface-hover: rgba(26, 44, 34, 0.8);
+            --glass-surface-solid: #132219;
+            --glass-border: rgba(255, 255, 255, 0.09);
+            --glass-border-subtle: rgba(74, 222, 128, 0.15);
+            --glass-border-highlight: rgba(74, 222, 128, 0.5);
+            --glass-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(255, 255, 255, 0.08) inset;
+            --glass-shadow-hover: 0 35px 70px -12px rgba(0, 0, 0, 0.7), 0 0 1px 1px rgba(74, 222, 128, 0.3) inset;
+            --glass-blur: blur(24px);
+            
+            --mesh-glow-1: rgba(34, 197, 94, 0.12);
+            --mesh-glow-2: rgba(51, 98, 70, 0.25);
+            --mesh-glow-3: rgba(15, 45, 30, 0.4);
+            --device-bg: #070d09;
+            --device-border: #1a2e22;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            font-family: 'Hanken Grotesk', sans-serif;
+            overflow-x: hidden;
+            transition: background-color 0.4s ease, color 0.4s ease;
+        }
+
+        /* Ambient Animated Mesh Background */
+        .ambient-mesh {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .mesh-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.85;
+            animation: orbFloat 18s ease-in-out infinite alternate;
+        }
+        .mesh-orb-1 {
+            top: -10%;
+            left: 15%;
+            width: 550px;
+            height: 550px;
+            background: radial-gradient(circle, var(--mesh-glow-1) 0%, transparent 70%);
+            animation-duration: 22s;
+        }
+        .mesh-orb-2 {
+            top: 40%;
+            right: -5%;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, var(--mesh-glow-2) 0%, transparent 70%);
+            animation-duration: 26s;
+            animation-delay: -5s;
+        }
+        .mesh-orb-3 {
+            bottom: 5%;
+            left: 5%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--mesh-glow-3) 0%, transparent 70%);
+            animation-duration: 20s;
+            animation-delay: -10s;
+        }
+
+        @keyframes orbFloat {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.08); }
+            100% { transform: translate(-40px, 80px) scale(0.95); }
+        }
+
+        /* 3D WebGL Canvas */
+        #webgl-hero-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Glassmorphic Components */
+        .glass-panel {
+            background: var(--glass-surface);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .glass-card {
+            background: var(--glass-surface);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        border-color 0.4s ease;
             position: relative;
             overflow: hidden;
         }
-        @media (min-width: 768px) {
-            .device-frame { border-radius: 2.5rem; padding: 8px; border-width: 8px; }
-        }
-        .device-notch {
+
+        .glass-card::before {
+            content: '';
             position: absolute;
-            top: 0; left: 50%;
-            transform: translateX(-50%);
-            width: 120px; height: 24px;
-            background: #27272a;
-            border-radius: 0 0 16px 16px;
-            z-index: 20;
-        }
-        .device-frame img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            border-radius: 1.5rem;
-            background: #000;
-        }
-        @media (min-width: 768px) {
-            .device-frame img { border-radius: 2rem; }
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.7s ease;
+            pointer-events: none;
         }
 
-        /* === Animations === */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to   { opacity: 1; }
-        }
-        @keyframes scaleIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to   { opacity: 1; transform: scale(1); }
-        }
-        @keyframes pulse-ring {
-            0%   { box-shadow: 0 0 0 0 rgba(51,98,70,0.4); }
-            70%  { box-shadow: 0 0 0 15px rgba(51,98,70,0); }
-            100% { box-shadow: 0 0 0 0 rgba(51,98,70,0); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50%      { transform: translateY(-10px); }
-        }
-        @keyframes slideInRight {
-            from { opacity: 0; transform: translateX(40px); }
-            to   { opacity: 1; transform: translateX(0); }
-        }
-        @keyframes slideInLeft {
-            from { opacity: 0; transform: translateX(-40px); }
-            to   { opacity: 1; transform: translateX(0); }
+        .glass-card:hover::before {
+            left: 100%;
         }
 
-        .animate-fadeInUp    { animation: fadeInUp 0.7s ease-out both; }
-        .animate-fadeInDown  { animation: fadeInDown 0.5s ease-out both; }
-        .animate-fadeIn      { animation: fadeIn 0.6s ease-out both; }
-        .animate-scaleIn     { animation: scaleIn 0.5s ease-out both; }
-        .animate-slideInRight{ animation: slideInRight 0.7s ease-out both; }
-        .animate-slideInLeft { animation: slideInLeft 0.7s ease-out both; }
-        .animate-float       { animation: float 4s ease-in-out infinite; }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-
-        /* Scroll-triggered reveal (initial hidden state) */
-        .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-left  { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .reveal-left.visible  { opacity: 1; transform: translateX(0); }
-        .reveal-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .reveal-right.visible { opacity: 1; transform: translateX(0); }
-        .reveal-scale { opacity: 0; transform: scale(0.9); transition: opacity 0.8s ease, transform 0.8s ease; }
-        .reveal-scale.visible { opacity: 1; transform: scale(1); }
-
-        /* === Mobile Menu === */
-        .mobile-menu { 
-            transform: translateX(100%); 
-            transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); 
-        }
-        .mobile-menu.open { transform: translateX(0); }
-        .menu-overlay { 
-            opacity: 0; pointer-events: none; 
-            transition: opacity 0.35s ease; 
-        }
-        .menu-overlay.open { opacity: 1; pointer-events: auto; }
-
-        /* === Back to Top === */
-        #backToTop {
-            opacity: 0; pointer-events: none;
-            transform: translateY(20px);
-            transition: opacity 0.35s ease, transform 0.35s ease;
-        }
-        #backToTop.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
-
-        /* === Dark Mode Transitions === */
-        body, nav, section, footer, div, a, button, h1, h2, h3, h4, p, span, img {
-            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        .glass-card:hover {
+            border-color: var(--glass-border-highlight);
+            box-shadow: var(--glass-shadow-hover);
         }
 
-        /* === Card Hover Enhancements === */
-        .card-hover {
-            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-        }
-        .card-hover:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 40px -12px rgba(0,0,0,0.12);
-            border-color: #a0d2af;
+        .glass-pill {
+            background: var(--glass-surface);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.08);
         }
 
-        /* === Button Pulse for CTA === */
-        .btn-pulse { animation: pulse-ring 2.5s infinite; }
+        /* Interactive 3D Card Hover Perspective */
+        .tilt-card {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            will-change: transform;
+        }
+        .tilt-content {
+            transform: translateZ(30px);
+            transform-style: preserve-3d;
+        }
+        .tilt-tag {
+            transform: translateZ(50px);
+        }
 
-        /* === Dark mode overrides (when .dark on html) === */
-        .dark body { background: #1a1c1a; }
-        .dark .dark\:bg-surface { background: rgba(30,32,30,0.85); }
-    </style></head><body class="bg-background text-on-background font-body-md antialiased selection:bg-primary-container selection:text-on-primary-container">
-<!-- Skip to content -->
-<a class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-primary focus:text-on-primary focus:px-5 focus:py-3 focus:rounded-full focus:shadow-lg" href="#main-content">Skip to main content</a>
+        /* Realistic Glass Specular Sheen */
+        .glass-sheen {
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-sheen::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.02) 50%, transparent 100%);
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        .dark .glass-sheen::after {
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.01) 50%, transparent 100%);
+        }
 
-<!-- Mobile Menu Overlay -->
-<div class="menu-overlay fixed inset-0 bg-black/50 z-40 md:hidden" id="menuOverlay" onclick="closeMenu()"></div>
+        /* Glowing Accent Line & Badges */
+        .badge-glow {
+            box-shadow: 0 0 20px -3px rgba(74, 222, 128, 0.4);
+        }
 
-<!-- TopNavBar -->
-<nav class="bg-surface/80 backdrop-blur-md sticky top-0 z-50 border-b border-outline-variant flex justify-between items-center w-full px-5 md:px-margin-desktop py-3 md:py-4 max-w-container-max mx-auto" id="mainNav">
-<a class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2 shrink-0" href="#">
-<img alt="Alyn's Poultry POS Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4zDEdE85Siwjn52VDVyXei6XVhpojp3UAK3FhYy8-lC0ZRc-xQNmRlZ0g9Ah0U9BR27aoSNRD5ENMNG43N3cCU-rB6vwmBzNSdSrNa_PcvOJfobCkcVAQKoj2jQtjXRo3nsuqI9rQCiwdZtfjEhZBpNMuSSM2CWMDV9lkO76JSbmYxuDyGVUBUy7mGzTv5n3mpxPNIoGgpFs8RGfNUcT_jGnw2f4zSVUrs702-ldUjnI6rykynUcA">
-            Alyn's Poultry POS
-        </a>
+        /* Device Mockup 3D Depth */
+        .device-stage {
+            perspective: 1200px;
+            transform-style: preserve-3d;
+        }
+        .device-3d-wrapper {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-style: preserve-3d;
+        }
+        .device-3d-wrapper:hover {
+            transform: rotateY(-6deg) rotateX(4deg) scale(1.02);
+        }
+        .device-frame-modern {
+            background: var(--device-bg);
+            border: 8px solid var(--device-border);
+            border-radius: 2.75rem;
+            box-shadow: 0 35px 80px -20px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+            position: relative;
+            overflow: hidden;
+        }
 
-<!-- Desktop Nav Links -->
-<div class="hidden md:flex items-center gap-6">
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#features">Features</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#dashboard">Dashboard</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors duration-200" href="#inventory">Inventory</a>
-</div>
+        /* Floating 3D Badge Animations */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1.5deg); }
+        }
+        @keyframes floatReverse {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(12px) rotate(-1.5deg); }
+        }
+        .animate-float-1 { animation: floatSlow 6s ease-in-out infinite; }
+        .animate-float-2 { animation: floatReverse 7s ease-in-out infinite 1s; }
+        .animate-float-3 { animation: floatSlow 5.5s ease-in-out infinite 0.5s; }
 
-<div class="flex items-center gap-3">
-<!-- Dark Mode Toggle -->
-<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors duration-200 text-on-surface-variant hover:text-primary" id="darkModeToggle" aria-label="Toggle dark mode" onclick="toggleDarkMode()">
-<span class="material-symbols-outlined text-2xl" id="darkModeIcon">dark_mode</span>
-</button>
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #336246, #4ade80, #86efac);
+            z-index: 100;
+            width: 0%;
+            transition: width 0.1s ease-out;
+        }
 
-<!-- Desktop Download -->
-<a class="hidden md:inline-flex bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-primary/90 transition-all duration-200 hover:scale-[0.98] active:scale-95" href="./alynpos.apk" download>
-            Download Now
-        </a>
+        /* Animated Grid lines */
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(51, 98, 70, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(51, 98, 70, 0.05) 1px, transparent 1px);
+        }
+        .dark .bg-grid-pattern {
+            background-image: 
+                linear-gradient(to right, rgba(74, 222, 128, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(74, 222, 128, 0.04) 1px, transparent 1px);
+        }
 
-<!-- Mobile Download -->
-<a class="inline-flex md:hidden bg-primary text-on-primary font-label-md text-label-md px-4 py-2 rounded-full hover:bg-primary/90 transition-all duration-200 active:scale-95 text-sm" href="./alynpos.apk" download>
-            Download
-        </a>
+        /* Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-<!-- Hamburger -->
-<button class="inline-flex md:hidden w-10 h-10 rounded-full items-center justify-center hover:bg-surface-container transition-colors duration-200 text-on-surface-variant" id="hamburgerBtn" aria-label="Open menu" onclick="toggleMenu()">
-<span class="material-symbols-outlined text-2xl" id="hamburgerIcon">menu</span>
-</button>
-</div>
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
-<!-- Mobile Menu Drawer -->
-<div class="mobile-menu fixed top-0 right-0 h-full w-72 bg-surface z-50 shadow-2xl flex flex-col p-6 md:hidden" id="mobileMenu">
-<div class="flex justify-between items-center mb-8">
-<span class="font-headline-md text-headline-md text-primary">Menu</span>
-<button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-surface-container transition-colors" onclick="closeMenu()" aria-label="Close menu">
-<span class="material-symbols-outlined">close</span>
-</button>
-</div>
-<div class="flex flex-col gap-4">
-<a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#features" onclick="closeMenu()">Features</a>
-<a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#dashboard" onclick="closeMenu()">Dashboard</a>
-<a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#inventory" onclick="closeMenu()">Inventory</a>
-<a class="mt-6 inline-flex justify-center items-center bg-primary text-on-primary font-label-md text-label-md px-6 py-3 rounded-full hover:bg-primary/90 transition-all duration-200" href="./alynpos.apk" download>Download Now</a>
-</div>
-</div>
-</nav>
-<main id="main-content">
-<!-- Hero Section -->
-<section class="max-w-container-max mx-auto px-5 md:px-margin-desktop py-16 md:py-section-gap grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center min-h-[auto] lg:min-h-[90vh]">
-<div class="space-y-8 animate-fadeInUp">
-<h1 class="font-headline-lg-mobile md:font-display-lg text-headline-lg-mobile md:text-display-lg text-on-background">
-                    Fast, offline-ready sales logging built for Philippine poultry shops.
-                </h1>
-<p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-xl">
-                    A modern POS that stays in sync across every phone and tablet in the shop—even without internet.
-                </p>
-<div class="flex flex-col sm:flex-row gap-4 pt-4">
-<a class="inline-flex justify-center items-center bg-primary text-on-primary font-label-md text-label-md px-8 py-4 rounded-full hover:bg-primary/90 transition-all duration-200 hover:scale-[0.98] active:scale-95 btn-pulse" href="./alynpos.apk" download>
-                        Get Started for Free
-                    </a>
-<a class="inline-flex justify-center items-center border border-outline text-primary font-label-md text-label-md px-8 py-4 rounded-full hover:bg-surface-container hover:border-primary transition-all duration-200 active:scale-95" href="#features">
-                        Explore Features
-                    </a>
-</div>
-</div>
-<div class="flex justify-center lg:justify-end relative animate-slideInRight delay-200">
-<!-- Decorative blur -->
-<div class="absolute inset-0 bg-primary-container/20 blur-[100px] rounded-full z-0 animate-pulse"></div>
-<div class="relative mx-auto w-[240px] sm:w-[280px] md:w-[320px] h-[500px] sm:h-[600px] md:h-[680px] bg-zinc-900 rounded-[2rem] md:rounded-[3rem] p-2 md:p-3 shadow-2xl border-[6px] md:border-[8px] border-zinc-800 z-10">
-<!-- Speaker/Sensor area -->
-<div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-zinc-800 rounded-b-2xl z-20"></div>
-<!-- Screen Content -->
-<div class="w-full h-full overflow-hidden rounded-[2rem] bg-black">
-<img alt="Alyn's POS Home Dashboard Screen" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmae5TCQRlus5E9o-54l5bNvZ0Vm5ApvHQhcD68ccUFrPidEcMwCgX19T5igOGg-ThnECUhNBb60UWUacK59TK4IjYZ8cEpD5KiXpPzOzb2SF6maaD2lQdhzwzPZpD6BA6N6E0c-VHzRmZC-NTMDYMZeZzMMqcxF60f9OxmU1O9jlL9UuhbB5Af_-5BrPvJT0o9JsY-oSQgXDVDQzo0mC2OB0ZoN8GCaRhPL0i8H85HT78NOc_8xgPDJjnGgGcVHHk-w">
-</div>
-<!-- Side Buttons -->
-<div class="absolute -right-2 top-32 w-1 h-16 bg-zinc-700 rounded-l-sm"></div>
-<div class="absolute -right-2 top-52 w-1 h-24 bg-zinc-700 rounded-l-sm"></div>
-</div>
-</div>
-</section>
-<!-- Feature Grid -->
-<section class="bg-surface-container-low py-16 md:py-section-gap" id="features">
-<div class="max-w-container-max mx-auto px-5 md:px-margin-desktop">
-<div class="text-center mb-10 md:mb-16 space-y-4 reveal">
-<h2 class="font-headline-md md:font-headline-lg text-headline-md md:text-headline-lg text-on-background">Designed for efficiency</h2>
-<p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-on-surface-variant max-w-2xl mx-auto">Everything you need to run your shop smoothly, distilled into a simple, reliable app.</p>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<!-- Feature 1 -->
-<div class="card-hover bg-surface rounded-2xl p-5 md:p-8 border border-outline-variant shadow-sm flex flex-col gap-4 reveal delay-100">
-<div class="w-full h-48 mb-4 overflow-hidden rounded-2xl shadow-sm group"><img alt="Modern poultry shop owner using tablet" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDg3-CEPHLAnt3em2prP2RztEDujriGoCxKx8vrjOGmolO52MysWYIL4uUzbLXRJLw8V4lb7MHmSpNlt6Cz49DshBlQ8umPuXgQWALVYT_jW4e3qpoOT3C-RhLx5GtLxhldHl5f1WL6TqLq_eS6eJ8sf9QRxYrWOnIxnj044bQFcphmCE4LqCWin4MrNgT6KB6a_myyaAczoK08x6pct5rL9jFt7ml1ExO-pqCS3VNazg65Syf9T1aK"></div>
-<h3 class="font-headline-md text-headline-md">One-tap sales logging</h3>
-<p class="font-body-md text-body-md text-on-surface-variant">Log transactions in seconds. Our intuitive interface minimizes taps so you can focus on the customer.</p>
-</div>
-<!-- Feature 2 -->
-<div class="card-hover bg-surface rounded-2xl p-5 md:p-8 border border-outline-variant shadow-sm flex flex-col gap-4 reveal delay-200">
-<div class="w-full h-48 mb-4 overflow-hidden rounded-2xl shadow-sm group"><img alt="Premium poultry feed bags" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOShOLmb3UFE7NGkDcPpZNJAVvx7__WcCZfoJjVuX8enNLGvqMyXT1p6hIMvOnIAe0dnefHuCBkE0-MGAv_eMbs7wpymFpo_tdd6wgCBTRCGOJeVYvD9UvoVfP3uJkv42G9FpI6JM5ZyRrXcmTpsoe8LhKvqGWkEOYaCxFXqaTq2OZGhq2uRfvynez6Q0D9J9A-5Gp2IpwKfuH6T1ziqz02Gig2vItTfdXtwwvKHbSU7Lh2DoCbgA3"></div>
-<h3 class="font-headline-md text-headline-md">Flexible pricing</h3>
-<p class="font-body-md text-body-md text-on-surface-variant">Set base prices per sack or kilo, and let the system suggest automated breakdowns. Override anytime.</p>
-</div>
-<!-- Feature 3 -->
-<div class="card-hover bg-surface rounded-2xl p-5 md:p-8 border border-outline-variant shadow-sm flex flex-col gap-4 reveal delay-300">
-<div class="w-12 h-12 rounded-xl bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed transition-transform duration-300 group-hover:scale-110">
-<span class="material-symbols-outlined" style="font-variation-settings: &quot;FILL&quot; 1;">wifi_off</span>
-</div>
-<h3 class="font-headline-md text-headline-md">Works Offline</h3>
-<p class="font-body-md text-body-md text-on-surface-variant">Intermittent internet? No problem. Continue logging sales offline; data syncs automatically when reconnected.</p>
-</div>
-</div>
-</div>
-</section>
-<!-- Product Showcase - Dashboard -->
-<section class="max-w-container-max mx-auto px-5 md:px-margin-desktop mb-16 md:mb-section-gap reveal-scale"><div class="relative h-[250px] md:h-[400px] w-full overflow-hidden rounded-[2rem] shadow-lg group cursor-pointer"><img alt="Modern minimalist poultry supply store interior" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG_CXdXyj7S_Va0CEyqNVzJHG-gMANIl2YwD8UBc_7mj57WmDHe6eIjjZjSeFsktTapjNWq6y9H0B1r0MFtcnoqPvT-sXAGcaboZWM9iOb2igJONBBt5l9Z_3xRbbNVv9Af5BWmsqTwGqK5FvMjCRXT3V-mcZcI_LASWIn7v5Td6vUgT-9Mot269MW0_lxPIUJcP6QOqV_lIDRzl8BiEQgDAz-kWYLob9Nyn8D1VhPI43asvbMToH7"><div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-8"><p class="text-on-primary font-headline-md">Experience the future of poultry retail.</p></div></div></section><section class="max-w-container-max mx-auto px-5 md:px-margin-desktop py-16 md:py-section-gap" id="dashboard">
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
-<div class="order-2 lg:order-1 flex justify-center lg:justify-start reveal-left">
-<div class="device-frame w-[220px] sm:w-[280px] h-[460px] sm:h-[600px]">
-<div class="device-notch"></div>
-<img alt="Analytics and Sales Overview Screen" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCiXX0onHUma4ue3o-whaErY6qJYf-5ni5qkcl8sh6eBz-amxldNo6kGiNVKPEz_QoyB1Sa32VdS3NQbio5mutYRpDf8Uc90BLp2xPCyt-DT3T2RMRf8b_qm2Gm6FFr9pR87CLZetdEhIxjStG390OUImo-vxNWv2rOQsKexyNjWxyBX21bSLLbSa3DfUbzE8HkdTP7qKvE5Dv1kIgPNr82uHW8V9Us676w1nG1mMfwvjdmMdnDH1Rrxb6SmyrGB4PLZg">
-</div>
-</div>
-<div class="space-y-6 order-1 lg:order-2 reveal-right">
-<h2 class="font-headline-md md:font-headline-lg text-headline-md md:text-headline-lg text-on-background">Your shop's pulse, in real-time.</h2>
-<p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-on-surface-variant">
-                        Get a clear picture of your day at a glance. Track today's sales, expenses, net income, and outstanding borrows effortlessly.
-                    </p>
-<ul class="space-y-4 pt-4">
-<li class="flex items-start gap-3 group cursor-default">
-<span class="material-symbols-outlined text-primary mt-1 transition-transform duration-300 group-hover:scale-125">check_circle</span>
-<span class="font-body-md text-body-md">Visual sales overview charts</span>
-</li>
-<li class="flex items-start gap-3 group cursor-default">
-<span class="material-symbols-outlined text-primary mt-1 transition-transform duration-300 group-hover:scale-125">check_circle</span>
-<span class="font-body-md text-body-md">Instant stock level alerts</span>
-</li>
-<li class="flex items-start gap-3 group cursor-default">
-<span class="material-symbols-outlined text-primary mt-1 transition-transform duration-300 group-hover:scale-125">check_circle</span>
-<span class="font-body-md text-body-md">Quick summaries of unpaid balances</span>
-</li>
-</ul>
-</div>
-</div>
-</section>
-<!-- Operations Section -->
-<section class="bg-surface-container-low py-16 md:py-section-gap overflow-hidden" id="inventory">
-<div class="max-w-container-max mx-auto px-5 md:px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-gutter items-center">
-<div class="space-y-6 reveal-left">
-<h2 class="font-headline-md md:font-headline-lg text-headline-md md:text-headline-lg text-on-background">Master your inventory &amp; operations.</h2>
-<p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-on-surface-variant">
-                        Keep track of every sack and sachet. Easily add new products, set low-stock warnings, and manage categories to keep your shelves organized.
-                    </p>
-<a class="inline-flex items-center gap-2 text-primary font-label-md text-label-md hover:underline mt-4 group transition-all duration-200" href="#">
-                        Explore Inventory Features <span class="material-symbols-outlined transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
-</a>
-</div>
-<div class="relative h-auto md:h-[600px] flex justify-center items-center"><div class="relative mx-auto w-[240px] sm:w-[280px] md:w-[320px] h-[500px] sm:h-[600px] md:h-[680px] bg-zinc-900 rounded-[2rem] md:rounded-[3rem] p-2 md:p-3 shadow-2xl border-[6px] md:border-[8px] border-zinc-800 z-10">
-<div class="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-6 bg-zinc-800 rounded-b-2xl z-20"></div>
-<div class="w-full h-full overflow-hidden rounded-[2rem] bg-black">
-<img alt="Sales Overview Dashboard" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiIoHvsZRqShWztDeToS_AT1Q9GHj3zk9B_0FffdN41RiK7UPY2vfHAwslyOwp4i250OdQm-bOxB90ObRiju3gDZF5CXDSFQOXW9huSWFxLq9e89dRii3LKUkMZeTEsrXky_2gQk439DZwFd3-ofDcGJbgkDtwVR4UOXstVCDOFYb5xK7V6FPF-JZu3ilxwiJV3wQUqfS47fpUwE4AFGCxGxmXLjqiFx40t-etlxC5pRPDDwGDRoKLPVJtzAVHs_ZWvA">
-</div>
-<div class="absolute -right-2 top-32 w-1 h-16 bg-zinc-700 rounded-l-sm"></div>
-<div class="absolute -right-2 top-52 w-1 h-24 bg-zinc-700 rounded-l-sm"></div>
-<div class="absolute inset-0 bg-primary/5 rounded-[3rem] pointer-events-none"></div>
-</div></div>
-</div>
-</section>
-<!-- Why Alyn's POS? -->
-<section class="max-w-container-max mx-auto px-5 md:px-margin-desktop py-16 md:py-section-gap text-center">
-<div class="max-w-3xl mx-auto space-y-6 mb-10 md:mb-16 reveal">
-<h2 class="font-headline-md md:font-headline-lg text-headline-md md:text-headline-lg text-on-background">Built for the way you work.</h2>
-<p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-on-surface-variant">
-                    Designed specifically for the fast-paced environment of Philippine poultry supply shops. Secure PIN logins for staff and a clean layout ensure anyone can use it with zero training.
-                </p>
-</div>
-<div class="flex flex-wrap justify-center gap-4 md:gap-8 items-center">
-<div class="device-frame w-[200px] sm:w-[260px] h-[420px] sm:h-[560px] reveal delay-200 animate-float">
-<div class="device-notch"></div>
-<img alt="POS Mode Product Selection Screen" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHip507RWS3yeWaNnuWt1MEfRCu3qrgg-kDvsYFsGocutl1zaKdX2EnlMZlGDN35b7qEKcqqQYomr6SSmJktV-Q6QXfjDSAW9KgBSWfq0OJ-c19ntbT1y0bMelkEti9b8NNMbVj__Varm9w-DYs4zCZPEd8mO4wHar0BUqPV5A-Upkn4uq5A3Fwrw0zW2ADnpDoKHNbjXIEUw9MovyiMmz_BsMQIJ60pVlTW-oEJOrwAaJD39LHEIiXekXukZgC0SfRg">
-</div>
-<div class="device-frame w-[200px] sm:w-[260px] h-[420px] sm:h-[560px] mt-8 md:mt-12 lg:mt-0 reveal delay-400">
-<div class="device-notch"></div>
-<img alt="Package Selection Overlay" class="w-full h-full object-cover" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnZR39Xri1mvftzxXb39HDEpyuW0AJR4o1nMhlgPcGX5LTb0IueOO_LGRI1KxJiahpU4Ge0TwvM9YwcoXKyNs9DkVBm4cau1DUSbW5oPvSVg_-9ceM4MDQ4EpPwtVWnkvTINF1WpZ2oEoZ-1Zpwo1nHP-5bkKrmbSyfnqWNrZ381soDm5pFwNj6_IiSAihh89lDVw3kzS8coEXViX297jQWWVQbrjUv4NrN_-CqpwWoQmooXOsiAQe68ttiJ8TusVh2Q">
-</div>
-</div>
-</section>
-<!-- Closing CTA -->
-<section class="bg-primary-container text-on-primary-container py-16 md:py-section-gap mx-4 mb-8 md:mb-margin-desktop rounded-[2rem] max-w-container-max lg:mx-auto reveal-scale">
-<div class="text-center px-5 md:px-margin-desktop space-y-6 md:space-y-8 max-w-3xl mx-auto">
-<h2 class="font-headline-lg-mobile md:font-display-lg text-headline-lg-mobile md:text-display-lg">Simplify your poultry business today.</h2>
-<p class="font-body-md md:font-body-lg text-body-md md:text-body-lg text-on-primary-container/80">Join modern shop owners who are upgrading their operations with Alyn's POS.</p>
-<div class="pt-4">
-<a class="inline-flex justify-center items-center bg-on-primary text-primary font-label-md text-label-md px-10 py-5 rounded-full hover:bg-surface transition-all duration-200 hover:scale-[0.98] active:scale-95 shadow-lg hover:shadow-xl" href="./alynpos.apk" download>
-                        Get Started Now <span class="material-symbols-outlined ml-2">download</span>
-                    </a>
-</div>
-</div>
-</section>
-</main>
-<!-- Footer -->
-<footer class="bg-surface-container dark:bg-surface-container-highest full-width py-16 md:py-section-gap border-t border-outline-variant dark:border-outline flat no shadows">
-<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-gutter px-5 md:px-margin-desktop max-w-container-max mx-auto">
-<div class="col-span-1 sm:col-span-2 md:col-span-2 space-y-4">
-<a class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary flex items-center gap-2" href="#">
-<img alt="Alyn's Poultry POS Logo" class="h-10 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AP1WRLsW53uBp3VrX4aks9GAXFdDq3D_lB23760t112TJvosVQJoHitWWIXt9n-cKQUGdSDkko6kUvgYopkz72RVm3rDcj2ttZ5Cruf3mj4rKsRwFbpYd82DxHTS9MLDTN9kmylQsOqux2aKNarmslnCn5EOaRZyTce2Xt-qRWR7oFX7wP1hBsekFAad64M3o8mg4XHpQv2ICY7_IObeNi9SxB6zClyTVzjVbdcq-4fyLZLY5_PWFPh20LZxmWc">
-                    Alyn's Poultry POS
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.93);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Radar Beacon for Offline Status */
+        .radar-pulse {
+            position: relative;
+        }
+        .radar-pulse::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: #4ade80;
+            opacity: 0.6;
+            animation: radarPing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+        @keyframes radarPing {
+            0% { transform: scale(1); opacity: 0.8; }
+            70% { transform: scale(2.5); opacity: 0; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        /* Shimmer Button */
+        .btn-shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shimmer::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(60deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: rotate(30deg) translateY(-100%);
+            transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-shimmer:hover::after {
+            transform: rotate(30deg) translateY(100%);
+        }
+
+        /* Custom Slider Range */
+        input[type="range"] {
+            accent-color: #336246;
+        }
+        .dark input[type="range"] {
+            accent-color: #4ade80;
+        }
+    </style>
+</head>
+<body class="relative min-h-screen selection:bg-brand-500 selection:text-white">
+
+    <!-- Scroll Progress -->
+    <div id="scroll-progress"></div>
+
+    <!-- Ambient Gradient Mesh Background -->
+    <div class="ambient-mesh">
+        <div class="mesh-orb mesh-orb-1"></div>
+        <div class="mesh-orb mesh-orb-2"></div>
+        <div class="mesh-orb mesh-orb-3"></div>
+        <div class="absolute inset-0 bg-grid-pattern opacity-60"></div>
+    </div>
+
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:px-6 focus:py-3 focus:bg-brand-500 focus:text-white focus:rounded-full focus:shadow-2xl font-mono text-sm font-semibold">
+        Skip to main content
+    </a>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="menuOverlay" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 opacity-0 pointer-events-none transition-opacity duration-300 md:hidden" onclick="closeMenu()"></div>
+
+    <!-- Floating Top Navigation -->
+    <header class="sticky top-0 z-50 px-4 sm:px-6 lg:px-8 pt-4 pb-2">
+        <nav class="max-w-6xl mx-auto glass-panel glass-sheen rounded-2xl md:rounded-full px-5 py-3.5 flex items-center justify-between transition-all duration-300" id="mainNav">
+            
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white shadow-md shadow-brand-500/20 group-hover:scale-105 transition-transform duration-300">
+                    <span class="material-symbols-outlined text-2xl font-bold">point_of_sale</span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-display font-bold text-lg leading-tight tracking-tight text-brand-900 dark:text-brand-50 group-hover:text-brand-500 dark:group-hover:text-brand-300 transition-colors">
+                        Alyn's POS
+                    </span>
+                    <span class="font-mono text-[10px] uppercase tracking-wider text-brand-700/70 dark:text-brand-300/70 font-semibold">
+                        Poultry Edition
+                    </span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <div class="hidden md:flex items-center gap-1 bg-black/5 dark:bg-white/5 p-1 rounded-full border border-black/5 dark:border-white/10">
+                <a href="#features" class="nav-link px-5 py-1.5 rounded-full text-sm font-medium text-brand-800/80 dark:text-brand-100/80 hover:text-brand-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-brand-800/60 transition-all duration-200">
+                    Features
                 </a>
-<p class="font-body-md text-body-md text-on-surface-variant max-w-sm">© 2026 Alyn's Poultry POS. Built by <a href="https://github.com/Wigibles" target="_blank" rel="noopener noreferrer" class="hover:text-primary transition-all duration-300 underline">LCS Dev.</a></p>
-</div>
-<div class="col-span-1 flex flex-col gap-3 mt-6 sm:mt-0">
-<h4 class="font-label-md text-label-md font-bold text-on-background uppercase tracking-wider mb-2">Legal</h4>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary hover:underline transition-all duration-300" href="#">Privacy Policy</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary hover:underline transition-all duration-300" href="#">Terms of Service</a>
-</div>
-<div class="col-span-1 flex flex-col gap-3">
-<h4 class="font-label-md text-label-md font-bold text-on-background uppercase tracking-wider mb-2">Connect</h4>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary hover:underline transition-all duration-300" href="#">Support</a>
-<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary dark:hover:text-inverse-primary hover:underline transition-all duration-300" href="#">Contact Us</a>
-</div>
-</div>
-</footer>
+                <a href="#interactive-demo" class="nav-link px-5 py-1.5 rounded-full text-sm font-medium text-brand-800/80 dark:text-brand-100/80 hover:text-brand-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-brand-800/60 transition-all duration-200">
+                    Live Demo
+                </a>
+                <a href="#calculator" class="nav-link px-5 py-1.5 rounded-full text-sm font-medium text-brand-800/80 dark:text-brand-100/80 hover:text-brand-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-brand-800/60 transition-all duration-200">
+                    Calculator
+                </a>
+                <a href="#faq" class="nav-link px-5 py-1.5 rounded-full text-sm font-medium text-brand-800/80 dark:text-brand-100/80 hover:text-brand-900 dark:hover:text-white hover:bg-white/80 dark:hover:bg-brand-800/60 transition-all duration-200">
+                    FAQ
+                </a>
+            </div>
 
-<!-- Back to Top Button -->
-<button id="backToTop" class="fixed bottom-6 right-6 z-50 w-12 h-12 rounded-full bg-primary text-on-primary shadow-lg flex items-center justify-center hover:bg-primary/90 hover:scale-110 active:scale-95 transition-all duration-300" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-<span class="material-symbols-outlined">arrow_upward</span>
-</button>
+            <!-- Action & Controls -->
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Dark Mode Toggle Button -->
+                <button id="darkModeToggle" onclick="toggleDarkMode()" class="w-10 h-10 rounded-full flex items-center justify-center text-brand-800 dark:text-brand-100 hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle visual theme">
+                    <span class="material-symbols-outlined text-[22px]" id="themeIcon">dark_mode</span>
+                </button>
 
-<!-- Scroll Reveal + Dark Mode + Mobile Menu Scripts -->
-<script>
-(function(){
-    'use strict';
+                <!-- Download Action (Desktop) -->
+                <a href="./alynpos.apk" download class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-display text-sm font-semibold shadow-lg shadow-brand-600/25 hover:shadow-brand-500/35 hover:scale-[1.02] active:scale-[0.98] transition-all btn-shimmer">
+                    <span>Download APK</span>
+                    <span class="material-symbols-outlined text-base">download</span>
+                </a>
 
-    // ===== Scroll Reveal =====
-    const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-    const observer = new IntersectionObserver(function(entries){
-        entries.forEach(function(entry){
-            if(entry.isIntersecting){
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target);
+                <!-- Hamburger Button (Mobile) -->
+                <button id="hamburgerBtn" onclick="toggleMenu()" class="md:hidden w-10 h-10 rounded-xl flex items-center justify-center text-brand-800 dark:text-brand-100 hover:bg-black/5 dark:hover:bg-white/10 transition-colors" aria-label="Toggle navigation drawer">
+                    <span class="material-symbols-outlined text-2xl" id="menuIcon">menu</span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Mobile Drawer Menu -->
+        <div id="mobileDrawer" class="fixed top-0 right-0 bottom-0 w-72 glass-panel glass-sheen z-50 p-6 flex flex-col justify-between translate-x-full transition-transform duration-300 ease-out md:hidden shadow-2xl">
+            <div>
+                <div class="flex items-center justify-between pb-6 border-b border-brand-500/10 dark:border-white/10">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white">
+                            <span class="material-symbols-outlined text-lg">point_of_sale</span>
+                        </div>
+                        <span class="font-display font-bold text-base text-brand-900 dark:text-brand-50">Alyn's POS</span>
+                    </div>
+                    <button onclick="closeMenu()" class="w-8 h-8 rounded-full flex items-center justify-center text-brand-700 dark:text-brand-200 hover:bg-black/5 dark:hover:bg-white/10" aria-label="Close menu">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+
+                <div class="flex flex-col gap-2 pt-6">
+                    <a href="#features" onclick="closeMenu()" class="px-4 py-3 rounded-xl font-medium text-brand-800 dark:text-brand-100 hover:bg-brand-500/10 transition-colors flex items-center justify-between">
+                        <span>Features</span>
+                        <span class="material-symbols-outlined text-sm text-brand-500">arrow_forward</span>
+                    </a>
+                    <a href="#interactive-demo" onclick="closeMenu()" class="px-4 py-3 rounded-xl font-medium text-brand-800 dark:text-brand-100 hover:bg-brand-500/10 transition-colors flex items-center justify-between">
+                        <span>Live Demo</span>
+                        <span class="material-symbols-outlined text-sm text-brand-500">arrow_forward</span>
+                    </a>
+                    <a href="#calculator" onclick="closeMenu()" class="px-4 py-3 rounded-xl font-medium text-brand-800 dark:text-brand-100 hover:bg-brand-500/10 transition-colors flex items-center justify-between">
+                        <span>Calculator</span>
+                        <span class="material-symbols-outlined text-sm text-brand-500">arrow_forward</span>
+                    </a>
+                    <a href="#faq" onclick="closeMenu()" class="px-4 py-3 rounded-xl font-medium text-brand-800 dark:text-brand-100 hover:bg-brand-500/10 transition-colors flex items-center justify-between">
+                        <span>FAQ</span>
+                        <span class="material-symbols-outlined text-sm text-brand-500">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-brand-500/10 dark:border-white/10 space-y-3">
+                <a href="./alynpos.apk" download class="w-full flex items-center justify-center gap-2 py-3.5 rounded-full bg-brand-500 hover:bg-brand-600 text-white font-display text-sm font-semibold shadow-lg shadow-brand-500/30">
+                    <span class="material-symbols-outlined text-lg">download</span>
+                    <span>Download App (APK)</span>
+                </a>
+                <p class="text-center font-mono text-[11px] text-brand-700/60 dark:text-brand-300/60">
+                    v1.2.0 • Offline Ready • Android 8.0+
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" class="relative z-10">
+
+        <!-- ================= HERO SECTION ================= -->
+        <section class="relative min-h-[92vh] flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-6 pb-20 overflow-hidden">
+            
+            <!-- 3D WebGL Three.js Scene Canvas -->
+            <canvas id="webgl-hero-canvas"></canvas>
+
+            <div class="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+                
+                <!-- Left Hero Copy -->
+                <div class="lg:col-span-7 space-y-6 sm:space-y-8 text-center lg:text-left reveal">
+                    
+                    <!-- Pill Tag -->
+                    <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-pill text-xs sm:text-sm font-mono text-brand-800 dark:text-brand-200 border border-brand-500/20 shadow-sm mx-auto lg:mx-0">
+                        <span class="w-2 h-2 rounded-full bg-brand-accent radar-pulse"></span>
+                        <span class="font-semibold text-brand-600 dark:text-brand-300">100% OFFLINE CAPABLE</span>
+                        <span class="text-brand-400">•</span>
+                        <span>Philippine Poultry Retail</span>
+                    </div>
+
+                    <!-- Main Headline -->
+                    <h1 class="font-display font-extrabold text-3xl sm:text-5xl lg:text-6xl tracking-tight text-brand-950 dark:text-white leading-[1.12]">
+                        Point of sale built for <span class="bg-gradient-to-r from-brand-600 via-brand-500 to-brand-accent bg-clip-text text-transparent">poultry shops</span> that never stops.
+                    </h1>
+
+                    <!-- Subhead -->
+                    <p class="font-sans text-base sm:text-lg lg:text-xl text-brand-800/80 dark:text-brand-100/80 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                        Log transactions in seconds, auto-calculate sack vs. kilo price breakdowns, and manage inventories flawlessly — even with zero internet.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                        <a href="./alynpos.apk" download class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-display text-base font-semibold shadow-xl shadow-brand-600/30 hover:shadow-brand-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all btn-shimmer group">
+                            <span class="material-symbols-outlined text-2xl group-hover:translate-y-0.5 transition-transform">android</span>
+                            <div class="text-left">
+                                <div class="text-xs uppercase tracking-wider font-mono opacity-80 leading-none">Free Download</div>
+                                <div class="text-base font-bold leading-tight">Get Android APK</div>
+                            </div>
+                            <span class="material-symbols-outlined text-xl ml-1">arrow_forward</span>
+                        </a>
+
+                        <a href="#interactive-demo" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 rounded-full glass-panel glass-sheen text-brand-900 dark:text-white font-display text-sm font-semibold hover:border-brand-accent transition-all hover:scale-[1.02] active:scale-[0.98]">
+                            <span class="material-symbols-outlined text-brand-500 dark:text-brand-300">play_circle</span>
+                            <span>Explore Interactive Demo</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Stats Bar -->
+                    <div class="pt-6 border-t border-brand-500/10 dark:border-white/10 grid grid-cols-3 gap-4 text-center lg:text-left max-w-lg mx-auto lg:mx-0">
+                        <div>
+                            <div class="font-display font-extrabold text-xl sm:text-2xl text-brand-900 dark:text-white">0 sec</div>
+                            <div class="font-mono text-xs text-brand-700/70 dark:text-brand-300/70">Sync Delay</div>
+                        </div>
+                        <div>
+                            <div class="font-display font-extrabold text-xl sm:text-2xl text-brand-900 dark:text-white">100%</div>
+                            <div class="font-mono text-xs text-brand-700/70 dark:text-brand-300/70">Offline First</div>
+                        </div>
+                        <div>
+                            <div class="font-display font-extrabold text-xl sm:text-2xl text-brand-900 dark:text-white">PIN</div>
+                            <div class="font-mono text-xs text-brand-700/70 dark:text-brand-300/70">Staff Security</div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Right Hero 3D Stage with Phone & Floating Glass Chips -->
+                <div class="lg:col-span-5 relative flex items-center justify-center device-stage reveal-scale">
+                    
+                    <!-- Ambient Glow Behind Phone -->
+                    <div class="absolute inset-0 bg-gradient-to-tr from-brand-500/30 to-brand-accent/20 rounded-full blur-[90px] pointer-events-none"></div>
+
+                    <!-- 3D Phone Mockup Container -->
+                    <div class="relative device-3d-wrapper z-20">
+                        
+                        <!-- Floating Glass Chip 1: Daily Sales (Top Left) -->
+                        <div class="absolute -top-6 -left-8 sm:-left-12 z-30 glass-panel glass-sheen rounded-2xl p-3.5 shadow-xl animate-float-1 border border-brand-500/20 max-w-[210px] hidden sm:block">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-xl bg-brand-accent/20 text-brand-600 dark:text-brand-300 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-lg">trending_up</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-mono uppercase tracking-wider text-brand-700/70 dark:text-brand-300/70">Today's Sales</div>
+                                    <div class="font-display font-bold text-sm text-brand-900 dark:text-white">₱ 24,850.00</div>
+                                </div>
+                            </div>
+                            <div class="mt-2 flex items-center gap-1.5 text-[10px] font-mono text-brand-600 dark:text-brand-300">
+                                <span class="material-symbols-outlined text-xs">arrow_upward</span>
+                                <span>+18.4% vs yesterday</span>
+                            </div>
+                        </div>
+
+                        <!-- Floating Glass Chip 2: Offline Status (Bottom Right) -->
+                        <div class="absolute -bottom-6 -right-6 sm:-right-10 z-30 glass-panel glass-sheen rounded-2xl p-3.5 shadow-xl animate-float-2 border border-brand-500/20 max-w-[200px]">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-xl bg-emerald-500/20 text-emerald-500 flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-lg">cloud_off</span>
+                                </div>
+                                <div>
+                                    <div class="text-[10px] font-mono uppercase tracking-wider text-brand-700/70 dark:text-brand-300/70">Local Database</div>
+                                    <div class="font-display font-bold text-xs text-brand-900 dark:text-white">Offline Active ✓</div>
+                                </div>
+                            </div>
+                            <div class="mt-1.5 text-[10px] font-mono text-brand-700/70 dark:text-brand-300/70">
+                                Auto-sync when online
+                            </div>
+                        </div>
+
+                        <!-- Floating Glass Chip 3: Inventory Low Stock (Middle Left) -->
+                        <div class="absolute top-1/2 -left-10 sm:-left-16 -translate-y-1/2 z-30 glass-panel glass-sheen rounded-2xl p-3 shadow-xl animate-float-3 border border-amber-500/30 max-w-[190px] hidden md:block">
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-amber-500 text-lg">warning</span>
+                                <span class="font-mono text-xs font-semibold text-brand-900 dark:text-white">Booster: 4 sacks left</span>
+                            </div>
+                        </div>
+
+                        <!-- Smartphone Body -->
+                        <div class="device-frame-modern w-[260px] sm:w-[300px] h-[520px] sm:h-[600px] p-2.5 mx-auto">
+                            <!-- Dynamic Island / Speaker Notch -->
+                            <div class="absolute top-3 left-1/2 -translate-x-1/2 w-28 h-5 bg-black/80 rounded-full z-30 flex items-center justify-between px-3">
+                                <div class="w-2.5 h-2.5 rounded-full bg-zinc-800"></div>
+                                <div class="w-2.5 h-2.5 rounded-full bg-brand-500/40"></div>
+                            </div>
+
+                            <!-- Screen Container -->
+                            <div class="w-full h-full rounded-[2.2rem] overflow-hidden bg-black relative">
+                                <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmae5TCQRlus5E9o-54l5bNvZ0Vm5ApvHQhcD68ccUFrPidEcMwCgX19T5igOGg-ThnECUhNBb60UWUacK59TK4IjYZ8cEpD5KiXpPzOzb2SF6maaD2lQdhzwzPZpD6BA6N6E0c-VHzRmZC-NTMDYMZeZzMMqcxF60f9OxmU1O9jlL9UuhbB5Af_-5BrPvJT0o9JsY-oSQgXDVDQzo0mC2OB0ZoN8GCaRhPL0i8H85HT78NOc_8xgPDJjnGgGcVHHk-w" 
+                                     alt="Alyn's POS Real Mobile Dashboard Interface" 
+                                     class="w-full h-full object-cover select-none">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= FEATURES GRID ================= -->
+        <section id="features" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-6xl mx-auto space-y-16">
+                
+                <!-- Section Header -->
+                <div class="text-center space-y-4 max-w-2xl mx-auto reveal">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold uppercase tracking-wider">
+                        Core Capabilities
+                    </div>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-brand-950 dark:text-white tracking-tight">
+                        Engineered for Philippine Poultry Retail
+                    </h2>
+                    <p class="font-sans text-base sm:text-lg text-brand-800/80 dark:text-brand-100/80">
+                        Zero bloated menus. Every button and formula was optimized for the high-volume speed of real feed and poultry supply shops.
+                    </p>
+                </div>
+
+                <!-- 3D Glass Cards Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Card 1 -->
+                    <div class="glass-card glass-sheen rounded-3xl p-6 sm:p-8 flex flex-col justify-between tilt-card reveal delay-100">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-500 to-brand-400 text-white flex items-center justify-center mb-6 shadow-lg shadow-brand-500/20">
+                                <span class="material-symbols-outlined text-3xl">touch_app</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl sm:text-2xl text-brand-950 dark:text-white mb-3">
+                                One-Tap Sales Logging
+                            </h3>
+                            <p class="font-sans text-sm sm:text-base text-brand-800/70 dark:text-brand-100/70 leading-relaxed mb-6">
+                                Minimum taps to complete a checkout. Search by brand name, feed code, or category with instant total calculation.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-500/10 dark:border-white/10 flex items-center justify-between font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold">
+                            <span>Sub-second checkout</span>
+                            <span class="material-symbols-outlined text-base">bolt</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-card glass-sheen rounded-3xl p-6 sm:p-8 flex flex-col justify-between tilt-card reveal delay-200">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center mb-6 shadow-lg shadow-emerald-500/20">
+                                <span class="material-symbols-outlined text-3xl">calculate</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl sm:text-2xl text-brand-950 dark:text-white mb-3">
+                                Smart Sack & Kilo Pricing
+                            </h3>
+                            <p class="font-sans text-sm sm:text-base text-brand-800/70 dark:text-brand-100/70 leading-relaxed mb-6">
+                                Auto-calculate fractional weights and sacks. Set customized markup pricing per kilo with instant manual override capability.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-500/10 dark:border-white/10 flex items-center justify-between font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold">
+                            <span>Dual-unit pricing</span>
+                            <span class="material-symbols-outlined text-base">scale</span>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card glass-sheen rounded-3xl p-6 sm:p-8 flex flex-col justify-between tilt-card reveal delay-300">
+                        <div>
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-teal-600 to-brand-accent text-white flex items-center justify-center mb-6 shadow-lg shadow-teal-500/20">
+                                <span class="material-symbols-outlined text-3xl">wifi_off</span>
+                            </div>
+                            <h3 class="font-display font-bold text-xl sm:text-2xl text-brand-950 dark:text-white mb-3">
+                                True Offline Sync
+                            </h3>
+                            <p class="font-sans text-sm sm:text-base text-brand-800/70 dark:text-brand-100/70 leading-relaxed mb-6">
+                                Weather brownouts or unstable rural cellular data won't stop your sales. Records save securely locally and sync quietly when back online.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-brand-500/10 dark:border-white/10 flex items-center justify-between font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold">
+                            <span>Zero data loss</span>
+                            <span class="material-symbols-outlined text-base">verified</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Secondary 2-Column Deep Dive -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 pt-8">
+                    
+                    <!-- Left Mini Card -->
+                    <div class="glass-card glass-sheen rounded-3xl p-8 flex flex-col sm:flex-row gap-6 items-start reveal-left">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-500/10 dark:bg-brand-400/20 text-brand-600 dark:text-brand-300 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-2xl">inventory_2</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-display font-bold text-lg text-brand-950 dark:text-white">
+                                Low-Stock Alerts & Inventory Reordering
+                            </h4>
+                            <p class="font-sans text-sm text-brand-800/70 dark:text-brand-100/70 leading-relaxed">
+                                Never run out of high-demand feeds during peak delivery days. Configure minimum threshold warnings that flag products before shelves empty.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Right Mini Card -->
+                    <div class="glass-card glass-sheen rounded-3xl p-8 flex flex-col sm:flex-row gap-6 items-start reveal-right">
+                        <div class="w-12 h-12 rounded-2xl bg-brand-500/10 dark:bg-brand-400/20 text-brand-600 dark:text-brand-300 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-2xl">lock</span>
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="font-display font-bold text-lg text-brand-950 dark:text-white">
+                                Staff PIN Security & Cash Drawer Control
+                            </h4>
+                            <p class="font-sans text-sm text-brand-800/70 dark:text-brand-100/70 leading-relaxed">
+                                Assign personalized quick 4-digit PINs for cashiers. Restrict discount overrides, track register audits, and protect master shop settings.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= INTERACTIVE DEMO SHOWCASE ================= -->
+        <section id="interactive-demo" class="py-24 px-4 sm:px-6 lg:px-8 relative bg-brand-500/5 dark:bg-white/[0.02] border-y border-brand-500/10 dark:border-white/5">
+            <div class="max-w-6xl mx-auto space-y-16">
+                
+                <!-- Section Header -->
+                <div class="text-center space-y-4 max-w-2xl mx-auto reveal">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold uppercase tracking-wider">
+                        Interactive Experience
+                    </div>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-brand-950 dark:text-white tracking-tight">
+                        Experience the Workflow
+                    </h2>
+                    <p class="font-sans text-base sm:text-lg text-brand-800/80 dark:text-brand-100/80">
+                        Click through the real app modules below to see how fast everyday poultry store tasks happen.
+                    </p>
+
+                    <!-- Interactive Tab Selector -->
+                    <div class="inline-flex p-1.5 rounded-2xl glass-panel glass-sheen border border-brand-500/20 mt-4 max-w-full overflow-x-auto">
+                        <button onclick="switchTab('sales')" id="tab-btn-sales" class="tab-btn active px-5 py-2.5 rounded-xl font-display text-sm font-semibold text-white bg-brand-500 shadow-md transition-all">
+                            Sales & POS
+                        </button>
+                        <button onclick="switchTab('analytics')" id="tab-btn-analytics" class="tab-btn px-5 py-2.5 rounded-xl font-display text-sm font-semibold text-brand-800 dark:text-brand-200 hover:text-brand-950 dark:hover:text-white transition-all">
+                            Daily Analytics
+                        </button>
+                        <button onclick="switchTab('inventory')" id="tab-btn-inventory" class="tab-btn px-5 py-2.5 rounded-xl font-display text-sm font-semibold text-brand-800 dark:text-brand-200 hover:text-brand-950 dark:hover:text-white transition-all">
+                            Stock & Inventory
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Tab Panels -->
+                <div class="glass-panel glass-sheen rounded-3xl p-6 sm:p-10 border border-brand-500/20 shadow-2xl relative overflow-hidden reveal">
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                        
+                        <!-- Left Details Box -->
+                        <div class="lg:col-span-6 space-y-6">
+                            
+                            <!-- Tab 1: Sales Info -->
+                            <div id="tab-content-sales" class="tab-content space-y-4">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-brand-500/10 text-brand-600 dark:text-brand-300 font-mono text-xs font-semibold">
+                                    MODULE 01 • INSTANT CHECKOUT
+                                </div>
+                                <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-brand-950 dark:text-white">
+                                    Speed Through Customer Lines in Under 10 Seconds
+                                </h3>
+                                <p class="font-sans text-base text-brand-800/80 dark:text-brand-100/80 leading-relaxed">
+                                    Add items by one-tap presets. Handles split payments (cash, GCash, borrows/utang), applies automated sack volume discounts, and generates clear receipts.
+                                </p>
+                                <ul class="space-y-3 pt-2">
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>One-tap sack vs kilo toggle</span>
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Credit / "Utang" customer balance tracking</span>
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Bluetooth thermal printer support</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Tab 2: Analytics Info -->
+                            <div id="tab-content-analytics" class="tab-content hidden space-y-4">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-emerald-500/10 text-emerald-600 dark:text-emerald-300 font-mono text-xs font-semibold">
+                                    MODULE 02 • SHOP INTELLIGENCE
+                                </div>
+                                <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-brand-950 dark:text-white">
+                                    Know Exactly What You Made Today at a Glance
+                                </h3>
+                                <p class="font-sans text-base text-brand-800/80 dark:text-brand-100/80 leading-relaxed">
+                                    Real-time dashboard summarizing total gross sales, deductible supplier expenses, net margin, and outstanding balances collected.
+                                </p>
+                                <ul class="space-y-3 pt-2">
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Automated net profit calculation</span>
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Top performing poultry feed brands</span>
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Daily & monthly exportable reports</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Tab 3: Inventory Info -->
+                            <div id="tab-content-inventory" class="tab-content hidden space-y-4">
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-teal-500/10 text-teal-600 dark:text-teal-300 font-mono text-xs font-semibold">
+                                    MODULE 03 • WAREHOUSE & STOCK
+                                </div>
+                                <h3 class="font-display font-extrabold text-2xl sm:text-3xl text-brand-950 dark:text-white">
+                                    Flawless Inventory Management & Sacks Breakdown
+                                </h3>
+                                <p class="font-sans text-base text-brand-800/80 dark:text-brand-100/80 leading-relaxed">
+                                    Automatically converts 50kg sacks into retail kilo portions without throwing inventory balances off. Low-stock alarms keep you stocked.
+                                </p>
+                                <ul class="space-y-3 pt-2">
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Automatic sack-to-kilo auto-deduction</span>
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Supplier batch & expiration tracking</span>
+                                    </li>
+                                    <li class="flex items-center gap-3 text-sm text-brand-900 dark:text-brand-100">
+                                        <span class="material-symbols-outlined text-brand-500">check_circle</span>
+                                        <span>Instant stock adjustment logs</span>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="pt-4">
+                                <a href="./alynpos.apk" download class="inline-flex items-center gap-2 text-sm font-semibold text-brand-600 dark:text-brand-300 hover:underline">
+                                    <span>Download and try it on your device</span>
+                                    <span class="material-symbols-outlined text-base">arrow_forward</span>
+                                </a>
+                            </div>
+
+                        </div>
+
+                        <!-- Right Device Mockup Preview with Smooth Image Transition -->
+                        <div class="lg:col-span-6 flex justify-center">
+                            <div class="device-frame-modern w-[240px] sm:w-[280px] h-[480px] sm:h-[560px] p-2.5 shadow-2xl relative">
+                                <div class="absolute top-3 left-1/2 -translate-x-1/2 w-24 h-4 bg-black/80 rounded-full z-30"></div>
+                                <div class="w-full h-full rounded-[2rem] overflow-hidden bg-black relative">
+                                    <img id="demo-mockup-img" 
+                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHip507RWS3yeWaNnuWt1MEfRCu3qrgg-kDvsYFsGocutl1zaKdX2EnlMZlGDN35b7qEKcqqQYomr6SSmJktV-Q6QXfjDSAW9KgBSWfq0OJ-c19ntbT1y0bMelkEti9b8NNMbVj__Varm9w-DYs4zCZPEd8mO4wHar0BUqPV5A-Upkn4uq5A3Fwrw0zW2ADnpDoKHNbjXIEUw9MovyiMmz_BsMQIJ60pVlTW-oEJOrwAaJD39LHEIiXekXukZgC0SfRg" 
+                                         alt="Alyn's POS Interactive View" 
+                                         class="w-full h-full object-cover transition-opacity duration-300">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= SAVINGS & EFFICIENCY CALCULATOR ================= -->
+        <section id="calculator" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-4xl mx-auto space-y-12">
+                
+                <div class="text-center space-y-4 max-w-2xl mx-auto reveal">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold uppercase tracking-wider">
+                        Business Impact
+                    </div>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl lg:text-5xl text-brand-950 dark:text-white tracking-tight">
+                        Calculate Your Shop's Monthly Gains
+                    </h2>
+                    <p class="font-sans text-base sm:text-lg text-brand-800/80 dark:text-brand-100/80">
+                        See how much manual ledger recording and inventory leakage costs your store every month.
+                    </p>
+                </div>
+
+                <!-- Calculator Glass Box -->
+                <div class="glass-card glass-sheen rounded-3xl p-6 sm:p-10 border border-brand-500/20 shadow-2xl reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                        
+                        <!-- Controls -->
+                        <div class="space-y-6">
+                            
+                            <!-- Slider 1: Sacks per day -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center text-sm font-medium">
+                                    <span class="text-brand-900 dark:text-brand-100 font-display">Daily Sacks Sold:</span>
+                                    <span id="calc-sacks-val" class="font-mono font-bold text-brand-600 dark:text-brand-300 text-base">35 sacks</span>
+                                </div>
+                                <input id="calc-sacks" type="range" min="5" max="150" value="35" step="5" class="w-full h-2 bg-brand-500/20 rounded-lg cursor-pointer" oninput="updateCalculator()">
+                                <div class="flex justify-between text-[11px] font-mono text-brand-700/60 dark:text-brand-300/60">
+                                    <span>5 sacks</span>
+                                    <span>75 sacks</span>
+                                    <span>150+ sacks</span>
+                                </div>
+                            </div>
+
+                            <!-- Slider 2: Cashiers / Staff -->
+                            <div class="space-y-2">
+                                <div class="flex justify-between items-center text-sm font-medium">
+                                    <span class="text-brand-900 dark:text-brand-100 font-display">Store Cashiers / Staff:</span>
+                                    <span id="calc-staff-val" class="font-mono font-bold text-brand-600 dark:text-brand-300 text-base">2 staff</span>
+                                </div>
+                                <input id="calc-staff" type="range" min="1" max="10" value="2" step="1" class="w-full h-2 bg-brand-500/20 rounded-lg cursor-pointer" oninput="updateCalculator()">
+                                <div class="flex justify-between text-[11px] font-mono text-brand-700/60 dark:text-brand-300/60">
+                                    <span>1 person</span>
+                                    <span>5 staff</span>
+                                    <span>10 staff</span>
+                                </div>
+                            </div>
+
+                            <!-- Average Sack Price Note -->
+                            <div class="p-3.5 rounded-xl bg-brand-500/10 border border-brand-500/15 text-xs text-brand-800 dark:text-brand-200 font-mono">
+                                💡 Based on typical Philippine feed retail margins (₱1,250 - ₱1,850/sack avg).
+                            </div>
+
+                        </div>
+
+                        <!-- Results Glass Display -->
+                        <div class="glass-panel glass-sheen rounded-2xl p-6 border border-brand-500/30 space-y-6 text-center md:text-left">
+                            <div>
+                                <div class="font-mono text-xs text-brand-700/70 dark:text-brand-300/70 uppercase tracking-wider">Estimated Monthly Time Saved</div>
+                                <div id="calc-result-hours" class="font-display font-extrabold text-3xl sm:text-4xl text-brand-600 dark:text-brand-300 mt-1">
+                                    42 Hours
+                                </div>
+                                <div class="text-xs text-brand-800/70 dark:text-brand-200/70 mt-0.5">No more manual ledger balancing at night</div>
+                            </div>
+
+                            <div class="pt-4 border-t border-brand-500/15 dark:border-white/10">
+                                <div class="font-mono text-xs text-brand-700/70 dark:text-brand-300/70 uppercase tracking-wider">Discrepancy & Leakage Prevented</div>
+                                <div id="calc-result-money" class="font-display font-extrabold text-3xl sm:text-4xl text-brand-900 dark:text-white mt-1">
+                                    ₱ 14,700 / mo
+                                </div>
+                                <div class="text-xs text-brand-800/70 dark:text-brand-200/70 mt-0.5">Protected from manual math errors & unrecorded utang</div>
+                            </div>
+
+                            <a href="./alynpos.apk" download class="w-full py-3 rounded-xl bg-brand-500 hover:bg-brand-600 text-white font-display text-sm font-semibold flex items-center justify-center gap-2 shadow-lg shadow-brand-500/25 transition-all">
+                                <span>Get Started Free</span>
+                                <span class="material-symbols-outlined text-base">arrow_forward</span>
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= FAQ SECTION ================= -->
+        <section id="faq" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-3xl mx-auto space-y-12">
+                
+                <div class="text-center space-y-4 reveal">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold uppercase tracking-wider">
+                        Common Questions
+                    </div>
+                    <h2 class="font-display font-extrabold text-3xl sm:text-4xl text-brand-950 dark:text-white tracking-tight">
+                        Frequently Asked Questions
+                    </h2>
+                </div>
+
+                <!-- FAQ Accordions -->
+                <div class="space-y-4 reveal">
+                    
+                    <!-- FAQ 1 -->
+                    <div class="glass-panel glass-sheen rounded-2xl p-5 border border-brand-500/15 cursor-pointer transition-all" onclick="toggleFaq(1)">
+                        <div class="flex items-center justify-between font-display font-bold text-base sm:text-lg text-brand-950 dark:text-white">
+                            <span>Does it really work 100% without internet connection?</span>
+                            <span id="faq-icon-1" class="material-symbols-outlined text-brand-500 transition-transform duration-300">expand_more</span>
+                        </div>
+                        <div id="faq-body-1" class="hidden font-sans text-sm text-brand-800/80 dark:text-brand-100/80 pt-3 leading-relaxed border-t border-brand-500/10 dark:border-white/10 mt-3">
+                            Yes! Alyn's POS uses a resilient offline-first local SQLite architecture. All sales transactions, customers, and stock logs are stored locally on your Android tablet or phone. Whenever your device reconnects to Wi-Fi or mobile data, it safely syncs everything to the cloud automatically.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="glass-panel glass-sheen rounded-2xl p-5 border border-brand-500/15 cursor-pointer transition-all" onclick="toggleFaq(2)">
+                        <div class="flex items-center justify-between font-display font-bold text-base sm:text-lg text-brand-950 dark:text-white">
+                            <span>Can I connect a 58mm or 80mm Bluetooth thermal receipt printer?</span>
+                            <span id="faq-icon-2" class="material-symbols-outlined text-brand-500 transition-transform duration-300">expand_more</span>
+                        </div>
+                        <div id="faq-body-2" class="hidden font-sans text-sm text-brand-800/80 dark:text-brand-100/80 pt-3 leading-relaxed border-t border-brand-500/10 dark:border-white/10 mt-3">
+                            Yes. The app is compatible with standard ESC/POS Bluetooth and USB thermal printers commonly sold in the Philippines (e.g. POS-58, Xprinter, Milestone).
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="glass-panel glass-sheen rounded-2xl p-5 border border-brand-500/15 cursor-pointer transition-all" onclick="toggleFaq(3)">
+                        <div class="flex items-center justify-between font-display font-bold text-base sm:text-lg text-brand-950 dark:text-white">
+                            <span>How do I install the APK on my Android device?</span>
+                            <span id="faq-icon-3" class="material-symbols-outlined text-brand-500 transition-transform duration-300">expand_more</span>
+                        </div>
+                        <div id="faq-body-3" class="hidden font-sans text-sm text-brand-800/80 dark:text-brand-100/80 pt-3 leading-relaxed border-t border-brand-500/10 dark:border-white/10 mt-3">
+                            Tap any "Download APK" button on this website from your Android device. Once downloaded, open the file from your Notifications or Downloads folder. If prompted, enable "Install unknown apps" in your Android settings, and tap Install.
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="glass-panel glass-sheen rounded-2xl p-5 border border-brand-500/15 cursor-pointer transition-all" onclick="toggleFaq(4)">
+                        <div class="flex items-center justify-between font-display font-bold text-base sm:text-lg text-brand-950 dark:text-white">
+                            <span>Can multiple cashiers log in with different PIN codes?</span>
+                            <span id="faq-icon-4" class="material-symbols-outlined text-brand-500 transition-transform duration-300">expand_more</span>
+                        </div>
+                        <div id="faq-body-4" class="hidden font-sans text-sm text-brand-800/80 dark:text-brand-100/80 pt-3 leading-relaxed border-t border-brand-500/10 dark:border-white/10 mt-3">
+                            Yes. You can create multiple cashier profiles with custom 4-digit PINs. Cashier transactions are attributed to each person so end-of-day cash drawer balancing is clear and tamper-proof.
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- ================= CLOSING CTA BANNER ================= -->
+        <section class="py-20 px-4 sm:px-6 lg:px-8 relative">
+            <div class="max-w-5xl mx-auto glass-panel glass-sheen rounded-[2.5rem] p-8 sm:p-14 border border-brand-accent/40 shadow-2xl relative overflow-hidden text-center reveal-scale">
+                
+                <!-- Background Glow -->
+                <div class="absolute -top-24 -right-24 w-80 h-80 bg-brand-accent/20 rounded-full blur-[80px] pointer-events-none"></div>
+                <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-brand-500/25 rounded-full blur-[80px] pointer-events-none"></div>
+
+                <div class="relative z-10 space-y-6 max-w-2xl mx-auto">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-pill font-mono text-xs text-brand-600 dark:text-brand-300 font-semibold uppercase tracking-wider">
+                        Ready to Upgrade?
+                    </div>
+
+                    <h2 class="font-display font-extrabold text-3xl sm:text-5xl text-brand-950 dark:text-white tracking-tight">
+                        Transform your poultry shop operations today.
+                    </h2>
+
+                    <p class="font-sans text-base sm:text-lg text-brand-800/80 dark:text-brand-100/80">
+                        Join modern Philippine poultry store owners who are saving hours every week with Alyn's POS.
+                    </p>
+
+                    <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+                        <a href="./alynpos.apk" download class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-10 py-5 rounded-full bg-gradient-to-r from-brand-600 to-brand-500 hover:from-brand-500 hover:to-brand-400 text-white font-display text-base font-bold shadow-xl shadow-brand-600/30 hover:scale-[1.02] active:scale-[0.98] transition-all btn-shimmer">
+                            <span class="material-symbols-outlined text-2xl">download</span>
+                            <span>Download APK (Free)</span>
+                        </a>
+
+                        <a href="#features" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-5 rounded-full glass-panel glass-sheen text-brand-900 dark:text-white font-display text-sm font-semibold hover:border-brand-accent transition-all">
+                            <span>Review Features</span>
+                        </a>
+                    </div>
+
+                    <p class="font-mono text-xs text-brand-700/60 dark:text-brand-300/60 pt-2">
+                        Requires Android 8.0 or higher • Zero monthly subscriptions
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="glass-panel border-t border-brand-500/10 dark:border-white/10 py-12 px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+            
+            <div class="sm:col-span-2 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-brand-500 flex items-center justify-center text-white">
+                        <span class="material-symbols-outlined text-xl">point_of_sale</span>
+                    </div>
+                    <span class="font-display font-bold text-lg text-brand-950 dark:text-white">Alyn's Poultry POS</span>
+                </div>
+                <p class="font-sans text-sm text-brand-800/70 dark:text-brand-100/70 max-w-sm leading-relaxed">
+                    A modern, offline-first Point of Sale and Inventory Management solution tailored for retail poultry supply businesses across the Philippines.
+                </p>
+                <div class="font-mono text-xs text-brand-700/60 dark:text-brand-300/60">
+                    © 2026 Alyn's Poultry POS. Built by <a href="https://github.com/Wigibles" target="_blank" rel="noopener noreferrer" class="text-brand-600 dark:text-brand-300 underline hover:text-brand-500">LCS Dev</a>.
+                </div>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="font-mono text-xs uppercase tracking-wider font-bold text-brand-950 dark:text-white">Product</h4>
+                <ul class="space-y-2 text-sm text-brand-800/70 dark:text-brand-100/70">
+                    <li><a href="#features" class="hover:text-brand-500 transition-colors">Features</a></li>
+                    <li><a href="#interactive-demo" class="hover:text-brand-500 transition-colors">Interactive Demo</a></li>
+                    <li><a href="#calculator" class="hover:text-brand-500 transition-colors">Impact Calculator</a></li>
+                    <li><a href="./alynpos.apk" download class="hover:text-brand-500 transition-colors">Direct APK Download</a></li>
+                </ul>
+            </div>
+
+            <div class="space-y-3">
+                <h4 class="font-mono text-xs uppercase tracking-wider font-bold text-brand-950 dark:text-white">Connect</h4>
+                <ul class="space-y-2 text-sm text-brand-800/70 dark:text-brand-100/70">
+                    <li><a href="https://github.com/Wigibles" target="_blank" rel="noopener noreferrer" class="hover:text-brand-500 transition-colors">GitHub Repository</a></li>
+                    <li><a href="#faq" class="hover:text-brand-500 transition-colors">Support & Help</a></li>
+                    <li><a href="#" class="hover:text-brand-500 transition-colors">Privacy Policy</a></li>
+                </ul>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- Back to Top Floating Button -->
+    <button id="backToTop" onclick="window.scrollTo({top:0, behavior:'smooth'})" class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full glass-panel glass-sheen border border-brand-500/30 text-brand-800 dark:text-brand-100 shadow-xl flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 hover:border-brand-accent active:scale-95" aria-label="Scroll back to top">
+        <span class="material-symbols-outlined text-2xl">arrow_upward</span>
+    </button>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ================= 1. Scroll Progress & Reveal =================
+            const scrollProgress = document.getElementById('scroll-progress');
+            const backToTop = document.getElementById('backToTop');
+
+            window.addEventListener('scroll', function() {
+                const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+                if (totalHeight > 0) {
+                    const progress = (window.scrollY / totalHeight) * 100;
+                    scrollProgress.style.width = progress + '%';
+                }
+
+                if (window.scrollY > 400) {
+                    backToTop.classList.remove('opacity-0', 'pointer-events-none');
+                    backToTop.classList.add('opacity-100', 'pointer-events-auto');
+                } else {
+                    backToTop.classList.add('opacity-0', 'pointer-events-none');
+                    backToTop.classList.remove('opacity-100', 'pointer-events-auto');
+                }
+            }, { passive: true });
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+            document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale').forEach(el => {
+                revealObserver.observe(el);
+            });
+
+            // ================= 2. Dark Mode Toggle =================
+            const html = document.documentElement;
+            const themeIcon = document.getElementById('themeIcon');
+
+            function applyTheme(isDark) {
+                if (isDark) {
+                    html.classList.add('dark');
+                    themeIcon.textContent = 'light_mode';
+                    localStorage.setItem('theme', 'dark');
+                } else {
+                    html.classList.remove('dark');
+                    themeIcon.textContent = 'dark_mode';
+                    localStorage.setItem('theme', 'light');
+                }
+                if (window.updateThreeJsLighting) {
+                    window.updateThreeJsLighting(isDark);
+                }
             }
-        });
-    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-    revealEls.forEach(function(el){ observer.observe(el); });
 
-    // ===== Back to Top visibility =====
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', function(){
-        if(window.scrollY > 500){
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
-    }, { passive: true });
-
-    // ===== Mobile Menu =====
-    const menu = document.getElementById('mobileMenu');
-    const overlay = document.getElementById('menuOverlay');
-    const hamburgerIcon = document.getElementById('hamburgerIcon');
-    let menuOpen = false;
-
-    window.toggleMenu = function(){
-        menuOpen = !menuOpen;
-        menu.classList.toggle('open', menuOpen);
-        overlay.classList.toggle('open', menuOpen);
-        hamburgerIcon.textContent = menuOpen ? 'close' : 'menu';
-        document.body.style.overflow = menuOpen ? 'hidden' : '';
-    };
-
-    window.closeMenu = function(){
-        menuOpen = false;
-        menu.classList.remove('open');
-        overlay.classList.remove('open');
-        hamburgerIcon.textContent = 'menu';
-        document.body.style.overflow = '';
-    };
-
-    // Close menu on Escape
-    document.addEventListener('keydown', function(e){
-        if(e.key === 'Escape' && menuOpen) closeMenu();
-    });
-
-    // ===== Dark Mode Toggle =====
-    const html = document.documentElement;
-    const darkIcon = document.getElementById('darkModeIcon');
-    
-    // Load saved preference
-    if(localStorage.getItem('theme') === 'dark' || 
-       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)){
-        html.classList.add('dark');
-        darkIcon.textContent = 'light_mode';
-    }
-
-    window.toggleDarkMode = function(){
-        if(html.classList.contains('dark')){
-            html.classList.remove('dark');
-            darkIcon.textContent = 'dark_mode';
-            localStorage.setItem('theme', 'light');
-        } else {
-            html.classList.add('dark');
-            darkIcon.textContent = 'light_mode';
-            localStorage.setItem('theme', 'dark');
-        }
-    };
-
-    // ===== Active Nav Link on Scroll =====
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('#mainNav a[href^="#"]');
-    window.addEventListener('scroll', function(){
-        let current = '';
-        sections.forEach(function(section){
-            const top = section.offsetTop - 120;
-            if(window.scrollY >= top){
-                current = section.getAttribute('id');
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                applyTheme(true);
+            } else {
+                applyTheme(false);
             }
-        });
-        navLinks.forEach(function(link){
-            link.style.color = '';
-            link.style.fontWeight = '';
-            if(link.getAttribute('href') === '#' + current){
-                link.style.color = '#336246';
-                link.style.fontWeight = '600';
+
+            window.toggleDarkMode = function() {
+                const isDark = html.classList.contains('dark');
+                applyTheme(!isDark);
+            };
+
+            // ================= 3. Mobile Drawer Navigation =================
+            const mobileDrawer = document.getElementById('mobileDrawer');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const menuIcon = document.getElementById('menuIcon');
+            let isMenuOpen = false;
+
+            window.toggleMenu = function() {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileDrawer.classList.remove('translate-x-full');
+                    menuOverlay.classList.remove('opacity-0', 'pointer-events-none');
+                    menuOverlay.classList.add('opacity-100', 'pointer-events-auto');
+                    menuIcon.textContent = 'close';
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    closeMenu();
+                }
+            };
+
+            window.closeMenu = function() {
+                isMenuOpen = false;
+                mobileDrawer.classList.add('translate-x-full');
+                menuOverlay.classList.add('opacity-0', 'pointer-events-none');
+                menuOverlay.classList.remove('opacity-100', 'pointer-events-auto');
+                menuIcon.textContent = 'menu';
+                document.body.style.overflow = '';
+            };
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && isMenuOpen) closeMenu();
+            });
+
+            // ================= 4. Interactive Demo Tab Switcher =================
+            const mockupImages = {
+                sales: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBHip507RWS3yeWaNnuWt1MEfRCu3qrgg-kDvsYFsGocutl1zaKdX2EnlMZlGDN35b7qEKcqqQYomr6SSmJktV-Q6QXfjDSAW9KgBSWfq0OJ-c19ntbT1y0bMelkEti9b8NNMbVj__Varm9w-DYs4zCZPEd8mO4wHar0BUqPV5A-Upkn4uq5A3Fwrw0zW2ADnpDoKHNbjXIEUw9MovyiMmz_BsMQIJ60pVlTW-oEJOrwAaJD39LHEIiXekXukZgC0SfRg',
+                analytics: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCiXX0onHUma4ue3o-whaErY6qJYf-5ni5qkcl8sh6eBz-amxldNo6kGiNVKPEz_QoyB1Sa32VdS3NQbio5mutYRpDf8Uc90BLp2xPCyt-DT3T2RMRf8b_qm2Gm6FFr9pR87CLZetdEhIxjStG390OUImo-vxNWv2rOQsKexyNjWxyBX21bSLLbSa3DfUbzE8HkdTP7qKvE5Dv1kIgPNr82uHW8V9Us676w1nG1mMfwvjdmMdnDH1Rrxb6SmyrGB4PLZg',
+                inventory: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDiIoHvsZRqShWztDeToS_AT1Q9GHj3zk9B_0FffdN41RiK7UPY2vfHAwslyOwp4i250OdQm-bOxB90ObRiju3gDZF5CXDSFQOXW9huSWFxLq9e89dRii3LKUkMZeTEsrXky_2gQk439DZwFd3-ofDcGJbgkDtwVR4UOXstVCDOFYb5xK7V6FPF-JZu3ilxwiJV3wQUqfS47fpUwE4AFGCxGxmXLjqiFx40t-etlxC5pRPDDwGDRoKLPVJtzAVHs_ZWvA'
+            };
+
+            window.switchTab = function(tabName) {
+                // Update buttons
+                ['sales', 'analytics', 'inventory'].forEach(key => {
+                    const btn = document.getElementById('tab-btn-' + key);
+                    const content = document.getElementById('tab-content-' + key);
+                    if (key === tabName) {
+                        btn.className = 'tab-btn active px-5 py-2.5 rounded-xl font-display text-sm font-semibold text-white bg-brand-500 shadow-md transition-all';
+                        content.classList.remove('hidden');
+                    } else {
+                        btn.className = 'tab-btn px-5 py-2.5 rounded-xl font-display text-sm font-semibold text-brand-800 dark:text-brand-200 hover:text-brand-950 dark:hover:text-white transition-all';
+                        content.classList.add('hidden');
+                    }
+                });
+
+                // Transition image
+                const img = document.getElementById('demo-mockup-img');
+                img.style.opacity = '0';
+                setTimeout(() => {
+                    img.src = mockupImages[tabName];
+                    img.style.opacity = '1';
+                }, 200);
+            };
+
+            // ================= 5. Savings & ROI Calculator =================
+            window.updateCalculator = function() {
+                const sacks = parseInt(document.getElementById('calc-sacks').value);
+                const staff = parseInt(document.getElementById('calc-staff').value);
+
+                document.getElementById('calc-sacks-val').textContent = sacks + ' sacks';
+                document.getElementById('calc-staff-val').textContent = staff + (staff === 1 ? ' person' : ' staff');
+
+                // Formula calculations
+                const hoursSaved = Math.round(sacks * 0.8 + staff * 7);
+                const leakageSaved = Math.round(sacks * 350 + staff * 1200);
+
+                document.getElementById('calc-result-hours').textContent = hoursSaved + ' Hours';
+                document.getElementById('calc-result-money').textContent = '₱ ' + leakageSaved.toLocaleString() + ' / mo';
+            };
+
+            // ================= 6. FAQ Accordion =================
+            window.toggleFaq = function(idx) {
+                const body = document.getElementById('faq-body-' + idx);
+                const icon = document.getElementById('faq-icon-' + idx);
+                const isOpen = !body.classList.contains('hidden');
+
+                document.querySelectorAll('[id^="faq-body-"]').forEach(el => el.classList.add('hidden'));
+                document.querySelectorAll('[id^="faq-icon-"]').forEach(el => el.style.transform = 'rotate(0deg)');
+
+                if (!isOpen) {
+                    body.classList.remove('hidden');
+                    icon.style.transform = 'rotate(180deg)';
+                }
+            };
+
+            // ================= 7. 3D Tilt Micro-interactions =================
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = ((y - centerY) / centerY) * -8;
+                    const rotateY = ((x - centerX) / centerX) * 8;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+                });
+            });
+
+            // ================= 8. Three.js 3D Interactive WebGL Scene =================
+            const canvas = document.getElementById('webgl-hero-canvas');
+            if (canvas && window.THREE) {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+                camera.position.z = 18;
+
+                const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+                renderer.setSize(window.innerWidth, window.innerHeight);
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+                // Ambient & Directional Lights
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+                scene.add(ambientLight);
+
+                const dirLight = new THREE.DirectionalLight(0x4ade80, 1.2);
+                dirLight.position.set(5, 10, 7);
+                scene.add(dirLight);
+
+                const pointLight = new THREE.PointLight(0x336246, 2, 50);
+                pointLight.position.set(-10, -5, 5);
+                scene.add(pointLight);
+
+                // Group of floating 3D glass geometry
+                const group = new THREE.Group();
+                scene.add(group);
+
+                const materials = {
+                    glassPrimary: new THREE.MeshPhysicalMaterial({
+                        color: 0x336246,
+                        metalness: 0.1,
+                        roughness: 0.15,
+                        transmission: 0.6,
+                        transparent: true,
+                        opacity: 0.75,
+                        wireframe: false,
+                        reflectivity: 0.9
+                    }),
+                    glassAccent: new THREE.MeshPhysicalMaterial({
+                        color: 0x4ade80,
+                        metalness: 0.2,
+                        roughness: 0.2,
+                        transmission: 0.7,
+                        transparent: true,
+                        opacity: 0.8,
+                        wireframe: false
+                    }),
+                    wireframe: new THREE.MeshBasicMaterial({
+                        color: 0x4ade80,
+                        wireframe: true,
+                        transparent: true,
+                        opacity: 0.25
+                    })
+                };
+
+                // Create Geometries (Icosahedron, Torus, Octahedron, Spheres)
+                const objects = [];
+
+                // 1. Central Icosahedron Crystal
+                const icoGeo = new THREE.IcosahedronGeometry(2.8, 0);
+                const icoMesh = new THREE.Mesh(icoGeo, materials.glassPrimary);
+                icoMesh.position.set(6, 1, 0);
+                group.add(icoMesh);
+                objects.push({ mesh: icoMesh, rotX: 0.005, rotY: 0.007, floatSpeed: 0.002, baseY: 1 });
+
+                // 2. Wireframe Cage
+                const icoWireMesh = new THREE.Mesh(new THREE.IcosahedronGeometry(3.3, 0), materials.wireframe);
+                icoWireMesh.position.set(6, 1, 0);
+                group.add(icoWireMesh);
+                objects.push({ mesh: icoWireMesh, rotX: -0.004, rotY: -0.005, floatSpeed: 0.002, baseY: 1 });
+
+                // 3. Floating Torus Ring
+                const torusGeo = new THREE.TorusGeometry(2, 0.5, 16, 50);
+                const torusMesh = new THREE.Mesh(torusGeo, materials.glassAccent);
+                torusMesh.position.set(-7, -2, -3);
+                group.add(torusMesh);
+                objects.push({ mesh: torusMesh, rotX: 0.008, rotY: 0.004, floatSpeed: 0.0025, baseY: -2 });
+
+                // 4. Little floating emerald spheres
+                for (let i = 0; i < 8; i++) {
+                    const size = 0.4 + Math.random() * 0.5;
+                    const sphereGeo = new THREE.SphereGeometry(size, 16, 16);
+                    const sphereMesh = new THREE.Mesh(sphereGeo, materials.glassAccent);
+                    const posX = (Math.random() - 0.5) * 26;
+                    const posY = (Math.random() - 0.5) * 16;
+                    const posZ = (Math.random() - 0.5) * 10 - 2;
+                    sphereMesh.position.set(posX, posY, posZ);
+                    group.add(sphereMesh);
+                    objects.push({
+                        mesh: sphereMesh,
+                        rotX: 0.01,
+                        rotY: 0.01,
+                        floatSpeed: 0.001 + Math.random() * 0.002,
+                        baseY: posY
+                    });
+                }
+
+                // Mouse interaction coordinates
+                let mouseX = 0;
+                let mouseY = 0;
+                let targetX = 0;
+                let targetY = 0;
+
+                window.addEventListener('mousemove', (e) => {
+                    mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+                    mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+                }, { passive: true });
+
+                // Window Resize Handler
+                window.addEventListener('resize', () => {
+                    camera.aspect = window.innerWidth / window.innerHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(window.innerWidth, window.innerHeight);
+                });
+
+                // Update 3D Lighting on Theme Toggle
+                window.updateThreeJsLighting = function(isDark) {
+                    if (isDark) {
+                        ambientLight.intensity = 0.5;
+                        dirLight.color.setHex(0x4ade80);
+                        dirLight.intensity = 1.4;
+                        materials.glassPrimary.color.setHex(0x285139);
+                    } else {
+                        ambientLight.intensity = 0.9;
+                        dirLight.color.setHex(0x336246);
+                        dirLight.intensity = 1.0;
+                        materials.glassPrimary.color.setHex(0x5da37e);
+                    }
+                };
+
+                // Render Loop
+                let clock = new THREE.Clock();
+                function animate() {
+                    requestAnimationFrame(animate);
+                    const elapsedTime = clock.getElapsedTime();
+
+                    targetX += (mouseX - targetX) * 0.04;
+                    targetY += (mouseY - targetY) * 0.04;
+
+                    group.rotation.y = targetX * 0.4;
+                    group.rotation.x = -targetY * 0.3;
+
+                    objects.forEach((obj, idx) => {
+                        obj.mesh.rotation.x += obj.rotX;
+                        obj.mesh.rotation.y += obj.rotY;
+                        obj.mesh.position.y = obj.baseY + Math.sin(elapsedTime * 1.5 + idx) * 0.4;
+                    });
+
+                    renderer.render(scene, camera);
+                }
+                animate();
             }
-        });
-    }, { passive: true });
 
-})();
-</script>
-
-</body></html>
+        })();
+    </script>
+</body>
+</html>
